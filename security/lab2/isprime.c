@@ -22,7 +22,9 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     
-    for(i = 2; i*i <= num; i++)
+    numSqrt = sqrt(num);
+    
+    for(i = 2; i <= numSqrt; i++)
     {
         if((num % i) == 0)
         {
@@ -35,3 +37,4 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
