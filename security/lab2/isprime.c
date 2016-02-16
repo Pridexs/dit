@@ -22,11 +22,14 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     
-    numSqrt = sqrt(numSqrt);
-    
-    for(i = 2; i*i < numSqrt; i++)
-        if((num % i) != 0)
+    for(i = 2; i*i <= num; i++)
+    {
+        if((num % i) == 0)
+        {
+            printf("%d is not prime\n", num);
             return 0;
+        }
+    }
     
     printf("%d is prime\n", num);
     
