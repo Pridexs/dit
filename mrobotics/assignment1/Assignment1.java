@@ -68,6 +68,7 @@ public class Assignment1 {
 
         while (!Button.ESCAPE.isDown()) {
           LCD.clear();
+          // 5 cm de erro
           LCD.drawInt(sonic.getDistance(), 0, 3);
           Thread.sleep(500);
         }
