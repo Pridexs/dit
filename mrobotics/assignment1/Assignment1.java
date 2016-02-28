@@ -1,25 +1,9 @@
+package assignment1;
+
 import lejos.nxt.*;
+import lejos.robotics.subsumption.Behavior;
 
-/*
-public class WaitForClap implements Behavior {
-    private boolean suppressed = false;
-
-    public boolean takeControl() {
-        return true;
-    }
-
-    public void suppress() {
-       suppressed = true;
-    }
-
-    public void action() {
-
-        while( !suppressed ) {
-            Thread.yield();
-        }
-    }
-}
-*/
+import assignment1.*;
 
 public class Assignment1 {
     public static void main (String[] args) throws Exception {
