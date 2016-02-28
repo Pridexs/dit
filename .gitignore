@@ -1,6 +1,6 @@
 # for lejOS
 *.class
-*.nxt
+*.nxj
 
 # Object files
 *.o
