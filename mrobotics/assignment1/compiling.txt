@@ -1,3 +1,0 @@
-nxjc -d . behaviors/*.java *.java
-nxjlink assignment1.Assignment1 -o Assignment1.nxj
-nxjupload -u -r Assignment1.nxj
