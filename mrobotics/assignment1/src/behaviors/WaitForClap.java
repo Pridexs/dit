@@ -24,10 +24,14 @@ public class WaitForClap implements Behavior {
     }
 
     public void action() {
-        wasTriggered = true;
+        LCD.clear();
 
         while( !suppressed && robot.sound.readValue() < 40) {
             Thread.yield();
         }
+
+        wasTriggered = true;
+        LCD.clear();
+        LCD.drawString("Claps!", 0, 0);
     }
 }

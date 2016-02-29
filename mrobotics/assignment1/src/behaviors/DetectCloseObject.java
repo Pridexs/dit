@@ -12,11 +12,12 @@ public class DetectCloseObject implements Behavior {
 
     public DetectCloseObject(Robot r) {
         suppressed = false;
+        wasTriggered = false;
         robot = r;
     }
 
     public boolean takeControl() {
-        return !suppressed;
+        return robot.bump.isPressed();
     }
 
     public void suppress() {
@@ -24,9 +25,16 @@ public class DetectCloseObject implements Behavior {
     }
 
     public void action() {
-        robot.pilot.rotate(90, true);
-        while( !suppressed && robot.pilot.isMoving() ) {
-            // Wait
+        wasTriggered = true;
+        int nAction = 0;
+
+        LCD.clear();
+        LCD.drawString("STOP!", 0, 0);
+
+        while( !suppressed && !Button.ESCAPE.isDown() ) {
+
         }
+        
+        LCD.clear();
     }
 }

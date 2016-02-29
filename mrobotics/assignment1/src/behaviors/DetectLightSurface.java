@@ -15,7 +15,7 @@ public class DetectLightSurface implements Behavior {
     }
 
     public boolean takeControl() {
-        return !wasTriggered && robot.light.getNormalizedLightValue() > 400;
+        return ( !wasTriggered && robot.light.getNormalizedLightValue() > 400 );
     }
 
     public void suppress() {
