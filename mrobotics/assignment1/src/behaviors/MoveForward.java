@@ -12,19 +12,18 @@ import lejos.robotics.subsumption.Behavior;
  */
 
 public class MoveForward implements Behavior {
-    private boolean suppressed, bumped;
+    private boolean suppressed;
     private static Robot robot;
 
     public MoveForward(Robot r) {
         suppressed = false;
-        bumped = false;
         robot = r;
     }
 
     public boolean takeControl() {
         // This is the default behavior, so if the escape button is not
         // pressed, keep koing forward.
-        return ( !Button.ESCAPE.isDown() && !bumped );
+        return true;
     }
 
     public void suppress() {
@@ -32,12 +31,13 @@ public class MoveForward implements Behavior {
     }
 
     public void action() {
+        LCD.clear();
+
         suppressed = false;
         robot.pilot.forward();
-        while( robot.pilot.isMoving() && !suppressed ) {
-            Thread.yield();
+        while( !suppressed ) {
+
         }
         robot.pilot.stop();
-        bumped = robot.bump.isPressed();
     }
 }

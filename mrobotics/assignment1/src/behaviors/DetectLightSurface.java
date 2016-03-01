@@ -24,7 +24,7 @@ public class DetectLightSurface implements Behavior {
 
     public void action() {
         wasTriggered = true;
-        robot.pilot.rotate(90, true);
+        robot.pilot.rotate(-90, true);
         while( !suppressed && robot.pilot.isMoving() ) {
             // Wait
         }

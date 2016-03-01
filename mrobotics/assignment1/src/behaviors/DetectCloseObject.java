@@ -17,7 +17,7 @@ public class DetectCloseObject implements Behavior {
     }
 
     public boolean takeControl() {
-        return robot.bump.isPressed();
+        return ( !wasTriggered && robot.sonic.getDistance() <25 );
     }
 
     public void suppress() {
@@ -28,13 +28,29 @@ public class DetectCloseObject implements Behavior {
         wasTriggered = true;
         int nAction = 0;
 
-        LCD.clear();
-        LCD.drawString("STOP!", 0, 0);
-
-        while( !suppressed && !Button.ESCAPE.isDown() ) {
-
+        // Making a switch statement so the code becomes more readable
+        // since we do not need to have a while loop after every
+        // action
+        while( !suppressed && nAction < 3 ) {
+            if ( !robot.pilot.isMoving() && !Button.ESCAPE.isDown() ){
+                switch (nAction) {
+                    case 0:
+                        robot.pilot.rotate(180, true);
+                        break;
+                    case 1:
+                        robot.pilot.travel(20, true);
+                        break;
+                    case 2:
+                        robot.pilot.rotate(90, true);
+                        break;
+                }
+                nAction++;
+            }
         }
-        
-        LCD.clear();
+
+        // This while is just to wait for the robot to complete
+        // the final action (if it is not suppressed)
+        while ( !suppressed && robot.pilot.isMoving() && !Button.ESCAPE.isDown() ) { }
+        robot.pilot.stop();
     }
 }

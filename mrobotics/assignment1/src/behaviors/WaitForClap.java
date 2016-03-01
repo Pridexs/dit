@@ -25,11 +25,17 @@ public class WaitForClap implements Behavior {
 
     public void action() {
         LCD.clear();
-
-        while( !suppressed && robot.sound.readValue() < 40) {
-            Thread.yield();
+        int sound;
+        // The first few values read always seem to be very high, so we are reading it
+        // here so we can ignore it later.
+        for (int i = 0; i < 4; i++) {
+            sound = robot.sound.readValue();
+            try { Thread.sleep(50); } catch (Exception e) { }
         }
-
+        sound = robot.sound.readValue();
+        while( !suppressed && sound < 40) {
+            sound = robot.sound.readValue();
+        }
         wasTriggered = true;
         LCD.clear();
         LCD.drawString("Claps!", 0, 0);
