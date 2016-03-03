@@ -8,7 +8,9 @@ import assignment1.*;
 
 public class Assignment1 {
     public static void main (String[] args) throws Exception {
-        Thread.sleep(100);
+        // Initial sleep, otherwise the robot will skip this first
+        // while if runned directly through the robot.
+        Thread.sleep(200);
 
         LCD.clear();
         LCD.drawString("Assignment1", 0, 0);
@@ -20,6 +22,11 @@ public class Assignment1 {
         }
 
         Robot robot = new Robot();
+        /*
+         * Declaration of behaviours.
+         * b1 = Lowest Priority
+         * b5 = Highest Priority
+         */
         Behavior b1 = new MoveForward(robot);
         Behavior b2 = new Stop(robot);
         Behavior b3 = new DetectCloseObject(robot);

@@ -36,7 +36,7 @@ public class MoveForward implements Behavior {
         suppressed = false;
         robot.pilot.forward();
         while( !suppressed ) {
-
+            // Wait
         }
         robot.pilot.stop();
     }

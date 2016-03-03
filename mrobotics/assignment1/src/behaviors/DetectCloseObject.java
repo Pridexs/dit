@@ -17,6 +17,9 @@ public class DetectCloseObject implements Behavior {
     }
 
     public boolean takeControl() {
+        // We chose this behavior to run only once so it does not
+        // interfere with the bumper in the last part, that is
+        // why the !wasTriggered variable is used.
         return ( !wasTriggered && robot.sonic.getDistance() <25 );
     }
 

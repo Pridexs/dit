@@ -1,5 +1,9 @@
 package assignment1;
 
+/*
+ * Robot class, so we dont instantiate several Sensors in each behaviour.
+ */
+
 import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 

@@ -28,9 +28,11 @@ public class Stop implements Behavior {
         LCD.drawString("STOP!", 0, 0);
 
         while( !suppressed && !Button.ESCAPE.isDown() ) {
-
+            // Wait
         }
-        System.exit(0);
+
+        // Exit the program
         LCD.clear();
+        System.exit(0);
     }
 }
