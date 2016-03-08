@@ -1,3 +1,18 @@
+/*
+ * Mobile Robotics - Assignment 1
+ *
+ * Dublin Institute of Technology
+ * Students:
+ *  - Alexandre Maros - D14128553
+ *  - Fábio Dayrell Rosa - D14128448
+ *
+ * To Compile run these commands in succession
+ *  nxjc -d . behaviors/*.java *.java
+ *  nxjlink assignment1.Assignment1 -o Assignment1.nxj
+ *  nxjupload -u -r Assignment1.nxj
+ */
+
+
 package assignment1;
 
 import lejos.nxt.*;
@@ -28,9 +43,9 @@ public class Assignment1 {
          * b5 = Highest Priority
          */
         Behavior b1 = new MoveForward(robot);
-        Behavior b2 = new Stop(robot);
-        Behavior b3 = new DetectCloseObject(robot);
-        Behavior b4 = new DetectLightSurface(robot);
+        Behavior b2 = new DetectCloseObject(robot);
+        Behavior b3 = new DetectLightSurface(robot);
+        Behavior b4 = new Stop(robot);
         Behavior b5 = new WaitForClap(robot);
         Behavior [] bArray = {b1, b2, b3, b4, b5};
 

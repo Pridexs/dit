@@ -1,3 +1,13 @@
+/*
+ * Mobile Robotics - Assignment 1
+ *
+ * Dublin Institute of Technology
+ * Students:
+ *  - Alexandre Maros - D14128553
+ *  - Fábio Dayrell Rosa - D14128448
+ *
+ */
+
 package assignment1;
 
 import lejos.nxt.*;
@@ -31,8 +41,6 @@ public class MoveForward implements Behavior {
     }
 
     public void action() {
-        LCD.clear();
-
         suppressed = false;
         robot.pilot.forward();
         while( !suppressed ) {

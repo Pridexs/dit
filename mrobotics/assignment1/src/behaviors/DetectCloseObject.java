@@ -1,3 +1,13 @@
+/*
+ * Mobile Robotics - Assignment 1
+ *
+ * Dublin Institute of Technology
+ * Students:
+ *  - Alexandre Maros - D14128553
+ *  - Fábio Dayrell Rosa - D14128448
+ *
+ */
+
 package assignment1;
 
 import lejos.nxt.*;
@@ -20,7 +30,7 @@ public class DetectCloseObject implements Behavior {
         // We chose this behavior to run only once so it does not
         // interfere with the bumper in the last part, that is
         // why the !wasTriggered variable is used.
-        return ( !wasTriggered && robot.sonic.getDistance() <25 );
+        return ( robot.sonic.getDistance() < 30 );
     }
 
     public void suppress() {
@@ -28,6 +38,7 @@ public class DetectCloseObject implements Behavior {
     }
 
     public void action() {
+        suppressed = false;
         wasTriggered = true;
         int nAction = 0;
 
