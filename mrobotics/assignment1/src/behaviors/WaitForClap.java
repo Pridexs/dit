@@ -45,7 +45,7 @@ public class WaitForClap implements Behavior {
         }
 
         sound = robot.sound.readValue();
-        while( !suppressed && sound < 60) {
+        while( !suppressed && sound < 80) {
             sound = robot.sound.readValue();
         }
 
