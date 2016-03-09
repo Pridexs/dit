@@ -15,6 +15,9 @@ class MainDialog(QtGui.QDialog):
         self.ui.btnGenerate.clicked.connect(self.generateKeys)
         self.ui.btnEncMessage.clicked.connect(self.createEncryptMsgDialog)
         self.generateKeys()
+        self.ui.textPublicKey_n.textChanged.connect(self.onPublicKeyChanged)
+        self.ui.textPublicKey_e.textChanged.connect(self.onPublicKeyChanged)
+        self.ui.textPrivateKey.textChanged.connect(self.onPrivateKeyChanged)
 
     def generateKeys(self):
         self.rsa.genKeys()
@@ -28,6 +31,21 @@ class MainDialog(QtGui.QDialog):
         d = self.rsa.getPrivateKey()
         encryptDialog = EncryptDialog(self.rsa, self)
         encryptDialog.show()
+
+    def onPublicKeyChanged(self):
+        try:
+            n = int(self.ui.textPublicKey_n.toPlainText())
+            e = int(self.ui.textPublicKey_e.toPlainText())
+            self.rsa.setPublicKey(n, e)
+        except:
+            print('Error.')
+
+    def onPrivateKeyChanged(self):
+        try:
+            d = int(self.ui.textPrivateKey.toPlainText())
+            self.rsa.setPrivateKey(d)
+        except:
+            print('Invalid Key')
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

@@ -72,5 +72,5 @@ class EncryptDialog(QtGui.QDialog):
     def encryptMessage(self):
         msg = self.ui.textMessage.toPlainText()
         n, e = self.rsa.getPublicKey()
-        encryptedMsg = self.rsa.encrypt(msg, n, e, 15)
+        encryptedMsg = self.rsa.encrypt(msg, n, e)
         self.ui.textEncryptedMessage.setText("{}".format(encryptedMsg))

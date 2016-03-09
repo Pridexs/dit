@@ -20,6 +20,12 @@ class RSA():
     def getPrivateKey(self):
         return self.d
 
+    def setPublicKey(self, n, e):
+        self.n, self.e = n, e
+
+    def setPrivateKey(self, d):
+        self.d = d
+
     def genKeys(self):
         p = self.genPrime()
         q = self.genPrime()
@@ -193,7 +199,7 @@ class RSA():
         return returnList
 
     # CHECK THIS FUNCTION
-    def encrypt(self, message, modN, e, blockSize):
+    def encrypt(self, message, modN, e, blockSize=15):
         """given a string message, public keys and blockSize, encrypt using
         RSA algorithms."""
         numList = self.string2numList(message)
@@ -201,7 +207,7 @@ class RSA():
         return [self.modExp(blocks, e, modN) for blocks in numBlocks]
 
     # CHECK THIS FUNCTION
-    def decrypt(self, secret, modN, d, blockSize):
+    def decrypt(self, secret, modN, d, blockSize=15):
         """reverse function of encrypt"""
         numBlocks = [self.modExp(blocks, d, modN) for blocks in secret]
         numList = self.blocks2numList(numBlocks, blockSize)
