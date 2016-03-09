@@ -178,6 +178,7 @@ class RSA():
 
     def numList2string(self, l):
         """Converts a list of integers to a string based on ASCII values"""
+        return ''.join(map(chr, l))
         return pickle.loads(''.join(map(chr, l)))
 
 
@@ -211,25 +212,4 @@ class RSA():
         """reverse function of encrypt"""
         numBlocks = [self.modExp(blocks, d, modN) for blocks in secret]
         numList = self.blocks2numList(numBlocks, blockSize)
-        return numList2string(numList)
-
-
-#cipher = encrypt(message, n, e, 15)
-#print('Cipher: ')
-#print(cipher)
-#deciphered = decrypt(cipher, n, d, 15)
-#print(deciphered)
-
-# Encryption
-#for i in range(0, len(message)):
-#    print(len(message), i)
-#    eMess.append(( (ord(message[i]) ** e) % n))
-#
-# Decryption
-#print(eMess)
-#
-#for i in range(0, len(eMess)):
-#    print(eMess[i])
-    #char = (eMess[i] ** d) % n
-    #print(char)
-    #print(str(unichr(char)))
+        return self.numList2string(numList)

@@ -8,6 +8,7 @@
 
 from PyQt4 import QtCore, QtGui
 from rsa import RSA
+import ast
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -68,9 +69,18 @@ class EncryptDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self.ui.textMessage.setText("attack at dawn")
         self.ui.btnEncrypt.clicked.connect(self.encryptMessage)
+        self.ui.btnDecrypt.clicked.connect(self.decryptMessage)
 
     def encryptMessage(self):
         msg = self.ui.textMessage.toPlainText()
         n, e = self.rsa.getPublicKey()
         encryptedMsg = self.rsa.encrypt(msg, n, e)
         self.ui.textEncryptedMessage.setText("{}".format(encryptedMsg))
+
+    def decryptMessage(self):
+        encryptedMsg = self.ui.textEncryptedMessage.toPlainText()
+        cipher = ast.literal_eval(encryptedMsg)
+        n, e = self.rsa.getPublicKey()
+        d = self.rsa.getPrivateKey()
+        msg = self.rsa.decrypt(cipher, n, d)
+        self.ui.textMessage.setText(msg)
