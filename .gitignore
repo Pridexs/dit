@@ -7,3 +7,7 @@
 *.ko
 *.obj
 *.elf
+
+# for Python
+*.pyc
+__pycache__
