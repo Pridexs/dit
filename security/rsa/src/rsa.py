@@ -12,7 +12,7 @@ from itertools import combinations
 class RSA():
 
     def __init__(self):
-        self.genKeys()
+        print('Initialized.')
 
     def getPublicKey(self):
         return self.n, self.e
@@ -172,14 +172,14 @@ class RSA():
 
     def string2numList(self, strn):
         """Converts a string to a list of integers based on ASCII values"""
-        print(strn)
+        return [ ord(chars) for chars in strn ]
         return [ chars for chars in pickle.dumps(strn) ]
 
 
     def numList2string(self, l):
         """Converts a list of integers to a string based on ASCII values"""
         return ''.join(map(chr, l))
-        return pickle.loads(''.join(map(chr, l)))
+        return pickle.loads((b''.join(map(bytes, l))))
 
 
     def numList2blocks(self, l, n):
@@ -200,7 +200,7 @@ class RSA():
         return returnList
 
     # CHECK THIS FUNCTION
-    def encrypt(self, message, modN, e, blockSize=15):
+    def encrypt(self, message, modN, e, blockSize=1):
         """given a string message, public keys and blockSize, encrypt using
         RSA algorithms."""
         numList = self.string2numList(message)
@@ -208,7 +208,7 @@ class RSA():
         return [self.modExp(blocks, e, modN) for blocks in numBlocks]
 
     # CHECK THIS FUNCTION
-    def decrypt(self, secret, modN, d, blockSize=15):
+    def decrypt(self, secret, modN, d, blockSize=1):
         """reverse function of encrypt"""
         numBlocks = [self.modExp(blocks, d, modN) for blocks in secret]
         numList = self.blocks2numList(numBlocks, blockSize)
