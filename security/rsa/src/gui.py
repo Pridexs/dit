@@ -2,6 +2,7 @@ import sys
 from PyQt4 import QtCore, QtGui
 from MainWindow import Ui_MainWindow
 from EncryptMessage import EncryptDialog
+from EncryptFile import EncryptFileDialog
 from rsa import RSA
 
 class MainDialog(QtGui.QDialog):
@@ -14,6 +15,7 @@ class MainDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self.ui.btnGenerate.clicked.connect(self.generateKeys)
         self.ui.btnEncMessage.clicked.connect(self.createEncryptMsgDialog)
+        self.ui.btnEncFile.clicked.connect(self.createEncryptFileDialog)
         self.generateKeys()
         self.ui.textPublicKey_n.textChanged.connect(self.onPublicKeyChanged)
         self.ui.textPublicKey_e.textChanged.connect(self.onPublicKeyChanged)
@@ -27,10 +29,12 @@ class MainDialog(QtGui.QDialog):
         self.ui.textPrivateKey.setText(str(self.rsa.getPrivateKey()))
 
     def createEncryptMsgDialog(self):
-        n, e = self.rsa.getPublicKey()
-        d = self.rsa.getPrivateKey()
         encryptDialog = EncryptDialog(self.rsa, self)
         encryptDialog.show()
+
+    def createEncryptFileDialog(self):
+        encryptFileDialog = EncryptFileDialog(self.rsa, self)
+        encryptFileDialog.show()
 
     def onPublicKeyChanged(self):
         try:

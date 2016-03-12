@@ -1,7 +1,21 @@
-#
-# References:
-#   - https://en.m.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
-#
+##############################################################################
+#  RSA Algorithm - Basic implementation                                      #                                    #
+#  Alexandre Maros - D14128553                                               #
+#  DIT - 2016                                                                #
+#                                                                            #
+#  Dependencies:                                                             #
+#    - GUI: PyQt4                                                            #
+#    - Python 3.4                                                            #
+#                                                                            #
+#  To run:                                                                   #
+#    - python gui.py                                                         #
+#                                                                            #
+#  Credits:                                                                  #
+#    - https://en.m.wikipedia.org/wiki/Modular_exponentiation#Right-to-      #
+#    - https://en.wikipedia.org/wiki/Modular_multiplicative_inverse          #
+#    - avalonalex for providing a basic implementation of the algorithm      #
+#                                                                            #
+##############################################################################
 
 import random
 import math
@@ -44,6 +58,7 @@ class RSA():
         # Generating d
         self.d = self.modInv(self.e, self.x)
 
+        print('-'*64)
         print('Variables: ')
         print('p = ' + str(p))
         print('q = ' + str(q))
@@ -51,7 +66,7 @@ class RSA():
         print('x = ' + str(self.x))
         print('e = ' + str(self.e))
         print('d = ' + str(self.d))
-        print('-'*30)
+        print('-'*64)
 
     # Generates a 128-bit prime number
     def genPrime(self):
@@ -106,7 +121,6 @@ class RSA():
         gcd = b
         return gcd, x, y
 
-    # CHECK THIS FUNCTION
     def coPrime(self, l):
         # returns 'True' if the values in the list L are all co-prime
         # otherwise, it returns 'False'.
@@ -115,7 +129,6 @@ class RSA():
                 return False
         return True
 
-    # CHECK THIS FUNCTION
     def modInv(self, a, m):
         # returns the multiplicative inverse of a in modulo m as a
         # positive value between zero and m-1
@@ -139,10 +152,7 @@ class RSA():
             returnList.extend(inner)
         return returnList
 
-    # CHECK THIS FUNCTIO
-    def int2baseTwo(self, x):
-        """x is a positive integer. Convert it to base two as a list of integers
-        in reverse order as a list."""
+    def int2binary(self, x):
         # repeating x >>= 1 and x & 1 will do the trick
         assert x >= 0
         bitInverse = []
@@ -151,12 +161,11 @@ class RSA():
             x >>= 1
         return bitInverse
 
-    # CHECK THIS FUNCTION
     def modExp(self, a, d, n):
         """returns a ** d (mod n)"""
         assert d >= 0
         assert n >= 0
-        base2D = self.int2baseTwo(d)
+        base2D = self.int2binary(d)
         base2DLength = len(base2D)
         modArray = []
         result = 1
@@ -173,43 +182,18 @@ class RSA():
     def string2numList(self, strn):
         """Converts a string to a list of integers based on ASCII values"""
         return [ ord(chars) for chars in strn ]
-        return [ chars for chars in pickle.dumps(strn) ]
-
 
     def numList2string(self, l):
         """Converts a list of integers to a string based on ASCII values"""
         return ''.join(map(chr, l))
-        return pickle.loads((b''.join(map(bytes, l))))
 
-
-    def numList2blocks(self, l, n):
-        """Take a list of integers(each between 0 and 127), and combines them
-        into block size n using base 256. If len(L) % n != 0, use some random
-        junk to fill L to make it."""
-        # Note that ASCII printable characters range is 0x20 - 0x7E
-        returnList = []
-        toProcess = copy.copy(l)
-        if len(toProcess) % n != 0:
-            for i in range(0, n - len(toProcess) % n):
-                toProcess.append(random.randint(32, 126))
-        for i in range(0, len(toProcess), n):
-            block = 0
-            for j in range(0, n):
-                block += toProcess[i + j] << (8 * (n - j - 1))
-            returnList.append(block)
-        return returnList
-
-    # CHECK THIS FUNCTION
     def encrypt(self, message, modN, e, blockSize=1):
         """given a string message, public keys and blockSize, encrypt using
         RSA algorithms."""
         numList = self.string2numList(message)
-        numBlocks = self.numList2blocks(numList, blockSize)
-        return [self.modExp(blocks, e, modN) for blocks in numBlocks]
+        return [self.modExp(blocks, e, modN) for blocks in numList]
 
-    # CHECK THIS FUNCTION
     def decrypt(self, secret, modN, d, blockSize=1):
         """reverse function of encrypt"""
-        numBlocks = [self.modExp(blocks, d, modN) for blocks in secret]
-        numList = self.blocks2numList(numBlocks, blockSize)
+        numList = [self.modExp(blocks, d, modN) for blocks in secret]
         return self.numList2string(numList)

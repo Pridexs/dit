@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "RSA Assignment 1", None))
         self.labelPK_e.setText(_translate("MainWindow", "Public Key (e)", None))
         self.labelPRK.setText(_translate("MainWindow", "Private Key", None))
-        self.btnGenerate.setText(_translate("MainWindow", "Generate Private & Public Key", None))
+        self.btnGenerate.setText(_translate("MainWindow", "Generate Private / Public Key", None))
         self.btnEncMessage.setText(_translate("MainWindow", "Encrypt / Decrypt Message", None))
         self.btnEncFile.setText(_translate("MainWindow", "Encrypt / Decrypt File", None))
         self.labelBK_n.setText(_translate("MainWindow", "Public Key (n)", None))
