@@ -1,3 +1,22 @@
+##############################################################################
+#  RSA Algorithm - Basic implementation                                      #
+#  Alexandre Maros - D14128553                                               #
+#  DIT - 2016                                                                #
+#                                                                            #
+#  Dependencies:                                                             #
+#    - GUI: PyQt4                                                            #
+#    - Python 3.4                                                            #
+#                                                                            #
+#  To run:                                                                   #
+#    - python gui.py                                                         #
+#                                                                            #
+#  Credits:                                                                  #
+#    - https://en.m.wikipedia.org/wiki/Modular_exponentiation#Right-to-      #
+#    - https://en.wikipedia.org/wiki/Modular_multiplicative_inverse          #
+#    - avalonalex for providing a basic implementation of the algorithm      #
+#                                                                            #
+##############################################################################
+
 import sys
 from PyQt4 import QtCore, QtGui
 from MainWindow import Ui_MainWindow

@@ -1,5 +1,5 @@
 ##############################################################################
-#  RSA Algorithm - Basic implementation                                      #                                    #
+#  RSA Algorithm - Basic implementation                                      #
 #  Alexandre Maros - D14128553                                               #
 #  DIT - 2016                                                                #
 #                                                                            #
@@ -153,7 +153,6 @@ class RSA():
         return returnList
 
     def int2binary(self, x):
-        # repeating x >>= 1 and x & 1 will do the trick
         assert x >= 0
         bitInverse = []
         while x != 0:
