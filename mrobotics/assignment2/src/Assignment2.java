@@ -49,14 +49,11 @@ public class Assignment2 {
             }
             robot.pilot.stop();
             if (i % 2 == 0) {
-                robot.setSizeY = robot.pilot.getMovementIncrement();
+                robot.setSizeY(robot.pilot.getMovementIncrement());
             } else {
-                robot.setSizeX = robot.pilot.getMovementIncrement();
+                robot.setSizeX(robot.pilot.getMovementIncrement());
             }
-            robot.pilot.rotate(90, true);
-        }
-        while (robot.pilot.isMoving()) {
-            // Wait until it finishes rotating
+            robot.pilot.rotate(90);
         }
         /*
          * END ROOM RECOGNITION
@@ -66,13 +63,13 @@ public class Assignment2 {
         /*
          * Declaration of behaviours.
          * b1 = Lowest Priority
-         * b5 = Highest Priority
+         * b4 = Highest Priority
          */
         Behavior b1 = new MoveForward(robot);
         Behavior b2 = new DetectCloseObject(robot);
-        Behavior b3 = new DetectLightSurface(robot);
+        Behavior b3 = new DetectWall(robot);
         Behavior b4 = new Stop(robot);
-        Behavior [] bArray = {b1, b2, b3, b4, b5};
+        Behavior [] bArray = {b1, b2, b3, b4};
 
         Arbitrator arby = new Arbitrator(bArray);
         arby.start();

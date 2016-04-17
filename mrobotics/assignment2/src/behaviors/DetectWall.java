@@ -26,7 +26,7 @@ public class DetectWall implements Behavior {
     }
 
     public boolean takeControl() {
-        return ( robot.isCloseToYWall );
+        return ( robot.isCloseToYWall() );
     }
 
     public void suppress() {
@@ -35,18 +35,23 @@ public class DetectWall implements Behavior {
 
     public void action() {
         suppressed = false;
+        
+        // Should the robot turn clockwise or counter clockwise?
+        double angle = 90 * robot.getTurnDirection();
 
-        robot.pilot.rotate(90, true);
+        robot.pilot.rotate(angle, true);
         while (robot.pilot.isMoving() || !suppressed) {
             // Wait
         }
 
-        robot.pilot.travel(7, true);
+        if (!suppressed)
+            robot.pilot.travel(7, true);
         while (robot.pilot.isMoving() || !suppressed) {
             // Wait
         }
 
-        robot.pilot.rotate(90, true);
+        if (!suppressed)
+            robot.pilot.rotate(angle, true);
         while (robot.pilot.isMoving() || !suppressed) {
             // Wait
         }

@@ -28,12 +28,23 @@ public class Robot {
 
     // Position of the robot
     private float px, py;
+    
+    // Variable to control which direction to turn
+    // -1 Clockwise 
+    // 1 Counter-Clockwise
+    private int turnDirection;
+    
+    // Variables for debug purposes
+    private float debugCounter;
 
     public Robot() {
         sizeX = 0;
         sizeY = 0;
         px = 0;
         py = 0;
+        turnDirection = 1;
+        
+        debugCounter = 0;
 
         pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
         pilot.setTravelSpeed(4.0);
@@ -44,30 +55,51 @@ public class Robot {
     }
 
     public boolean  isCloseToYWall() {
+        
+        // For DEBUG Purposes:
+        if (debugCounter >= 5) {
+            debugCounter = 0;
+            LCD.clear();
+            LCD.drawString("sizeX", 0, 0);
+            LCD.drawInt(Math.round(sizeX), 5, 0);
+            
+            LCD.drawString("sizeY", 0, 1);
+            LCD.drawInt(Math.round(sizeY), 5, 1);
+            
+            LCD.drawString("px", 0, 2);
+            LCD.drawInt(Math.round(px), 3, 2);
+            
+            LCD.drawString("py", 0, 3);
+            LCD.drawInt(Math.round(py), 3, 3);
+        }
+        debugCounter++;
+        
         if (py + 20 > sizeY) {
             return true;
         }
+        return false;
     }
 
     public boolean isCloseToXWall() {
         if (px + 20 > sizeX) {
             return true;
         }
+        return false;
     }
 
-    public getSizeX() {
+    public float getSizeX() {
         return this.sizeX;
     }
 
-    public getSizeY() {
+    public float getSizeY() {
         return this.sizeY;
     }
 
-    public setSizeX(float x) {
+    public void setSizeX(float x) {
         this.sizeX = x;
     }
 
-    public setSizeY(float y) {
+    public void setSizeY(float y) {
         this.sizeY = y;
     }
 
@@ -76,22 +108,28 @@ public class Robot {
     }
 
     public float getPY() {
-        return this.pY;
+        return this.py;
     }
 
-    public float movePX(float x) {
+    public void movePX(float x) {
         this.px = this.px + x;
     }
 
-    public float movePY(float y) {
+    public void movePY(float y) {
         this.py = this.py + y;
     }
 
-    public float setPX(float x) {
+    public void setPX(float x) {
         this.px = x;
     }
 
-    public float setPY(float y) {
+    public void setPY(float y) {
         this.py = y;
+    }
+    
+    public int getTurnDirection() {
+        int aux = this.turnDirection;
+        this.turnDirection = this.turnDirection * -1;
+        return aux;
     }
 }

@@ -26,8 +26,7 @@ public class DetectCloseObject implements Behavior {
     }
 
     public boolean takeControl() {
-        int d = robot.sonic.getDistance();
-        return ( d < 11 || d < 25 );
+        return robot.sonic.getDistance() < 11;
     }
 
     public void suppress() {
@@ -41,6 +40,15 @@ public class DetectCloseObject implements Behavior {
         while (robot.pilot.isMoving() || !suppressed) {
             // Wait
         }
+        
+        if (!suppressed) {
+            robot.pilot.rotate(-90, true);
+        }
+        
+        while (robot.pilot.isMoving() || !suppressed) {
+            // Wait
+        }
+        
         robot.pilot.stop();
     }
 }
