@@ -43,11 +43,11 @@ public class MoveForward implements Behavior {
     public void action() {
         suppressed = false;
 
-        robot.setPY(0);
         robot.pilot.forward();
         while( !suppressed ) {
-            robot.setPY(robot.pilot.getMovementIncrement());
+            robot.setMovementIncrement(robot.pilot.getMovementIncrement());
         }
+        robot.resetMovementIncrement();
         robot.pilot.stop();
     }
 }

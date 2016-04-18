@@ -29,10 +29,18 @@ public class Robot {
     // Position of the robot
     private float px, py;
     
+    // Variable to store the Movement Increment
+    private float movementIncrement;
+    
     // Variable to control which direction to turn
     // -1 Clockwise 
     // 1 Counter-Clockwise
     private int turnDirection;
+    
+    // Variable to control the carpet detection
+    private boolean isInCarpet;
+    private int floorLightValue;
+    private int lightError;
     
     // Variables for debug purposes
     private float debugCounter;
@@ -43,18 +51,25 @@ public class Robot {
         px = 0;
         py = 0;
         turnDirection = 1;
+        movementIncrement = 0;
+        isInCarpet = false;
+        lightError = 40;
         
         debugCounter = 0;
 
         pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
         pilot.setTravelSpeed(4.0);
 
-        light = new LightSensor(SensorPort.S2);
-        sonic = new UltrasonicSensor(SensorPort.S3);
-        bump = new TouchSensor(SensorPort.S4);
+        light   = new LightSensor(SensorPort.S2);
+        sonic   = new UltrasonicSensor(SensorPort.S3);
+        bump    = new TouchSensor(SensorPort.S4);
+    }
+    
+    public void setFloorLightValue(int flv) {
+        this.floorLightValue = flv;
     }
 
-    public boolean  isCloseToYWall() {
+    public boolean isCloseToYWall() {
         
         // For DEBUG Purposes:
         if (debugCounter >= 5) {
@@ -66,15 +81,19 @@ public class Robot {
             LCD.drawString("sizeY", 0, 1);
             LCD.drawInt(Math.round(sizeY), 5, 1);
             
+            
             LCD.drawString("px", 0, 2);
             LCD.drawInt(Math.round(px), 3, 2);
             
             LCD.drawString("py", 0, 3);
             LCD.drawInt(Math.round(py), 3, 3);
+            
+            LCD.drawString("mi", 0, 4);
+            LCD.drawInt(Math.round(movementIncrement), 2, 4);
         }
         debugCounter++;
         
-        if (py + 20 > sizeY) {
+        if (py + 20 > sizeY + movementIncrement) {
             return true;
         }
         return false;
@@ -131,5 +150,44 @@ public class Robot {
         int aux = this.turnDirection;
         this.turnDirection = this.turnDirection * -1;
         return aux;
+    }
+    
+    public void setMovementIncrement(float mi) {
+        this.movementIncrement = mi;
+    }
+    
+    public void resetMovementIncrement() {
+        this.py += this.movementIncrement;
+        this.movementIncrement = 0;
+    }
+    
+    public boolean enteredCarpet() {
+        if (!isInCarpet) {
+            int nlv = light.getNormalizedLightValue();
+            if (nlv > floorLightValue + lightError 
+               || nlv < floorLightValue - lightError) {
+                isInCarpet = true;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean leftCarpet() {
+        if (isInCarpet) {
+            int nlv = light.getNormalizedLightValue();
+            if (nlv > floorLightValue - lightError 
+               && nlv < floorLightValue + lightError) {
+                isInCarpet = false;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

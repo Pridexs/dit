@@ -55,6 +55,8 @@ public class DetectWall implements Behavior {
         while (robot.pilot.isMoving() || !suppressed) {
             // Wait
         }
+        
+        robot.setPY(0);
 
         robot.pilot.stop();
     }

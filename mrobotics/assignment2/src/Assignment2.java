@@ -55,6 +55,8 @@ public class Assignment2 {
             }
             robot.pilot.rotate(90);
         }
+        // Find floor color
+        robot.setFloorLightValue(robot.light.getNormalizedLightValue());
         /*
          * END ROOM RECOGNITION
          */
@@ -66,10 +68,12 @@ public class Assignment2 {
          * b4 = Highest Priority
          */
         Behavior b1 = new MoveForward(robot);
-        Behavior b2 = new DetectCloseObject(robot);
-        Behavior b3 = new DetectWall(robot);
-        Behavior b4 = new Stop(robot);
-        Behavior [] bArray = {b1, b2, b3, b4};
+        Behavior b2 = new DetectLeftCarpet(robot);
+        Behavior b3 = new DetectEnteredCarpet(robot);
+        Behavior b4 = new DetectCloseObject(robot);
+        Behavior b5 = new DetectWall(robot);
+        Behavior b6 = new Stop(robot);
+        Behavior [] bArray = {b1, b2, b3, b4, b5, b6};
 
         Arbitrator arby = new Arbitrator(bArray);
         arby.start();

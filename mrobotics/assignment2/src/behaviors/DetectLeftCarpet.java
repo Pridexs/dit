@@ -16,17 +16,17 @@ import lejos.robotics.subsumption.Behavior;
 
 import assignment2.Robot;
 
-public class DetectCloseObject implements Behavior {
+public class DetectLeftCarpet implements Behavior {
     private boolean suppressed;
     private static Robot robot;
 
-    public DetectCloseObject(Robot r) {
+    public DetectLeftCarpet(Robot r) {
         suppressed = false;
         robot = r;
     }
 
     public boolean takeControl() {
-        return robot.sonic.getDistance() < 11;
+        return robot.leftCarpet();
     }
 
     public void suppress() {
@@ -36,20 +36,6 @@ public class DetectCloseObject implements Behavior {
     public void action() {
         suppressed = false;
 
-        robot.pilot.arc(45, 180, true);
-        while (robot.pilot.isMoving() || !suppressed) {
-            // Wait
-        }
-        
-        if (!suppressed) {
-            robot.pilot.rotate(-90, true);
-        }
-        
-        while (robot.pilot.isMoving() || !suppressed) {
-            // Wait
-        }
-        robot.movePY(90);
-        
-        robot.pilot.stop();
+        LCD.clear();
     }
 }
