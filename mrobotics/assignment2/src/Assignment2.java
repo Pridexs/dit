@@ -26,7 +26,7 @@ public class Assignment2 {
         // Initial sleep, otherwise the robot will skip this first
         // while if runned directly through the robot.
         Thread.sleep(200);
-
+        
         LCD.clear();
         LCD.drawString("Assignment2", 0, 0);
         while ( true ) {
@@ -38,13 +38,19 @@ public class Assignment2 {
 
         Robot robot = new Robot();
         
+        
+        robot.pilot.rotate(90);
+        robot.pilot.arc(-8, 23);
+        robot.pilot.rotate(-90);
+
+        
         /*
          * ROOM RECOGNITION
          * Move until finds a wall -> rotate -> repeat 4 times
          */
         for (int i = 0; i < 4; i++) {
             robot.pilot.forward();
-            while (robot.sonic.getDistance() > 35) {
+            while (robot.sonic.getDistance() > 25) {
                 // Move until reaches wall
             }
             robot.pilot.stop();

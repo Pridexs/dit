@@ -36,20 +36,23 @@ public class DetectCloseObject implements Behavior {
     public void action() {
         suppressed = false;
         
-        
-        LCD.drawString("DETECTCLOSEOBJECT", 0, 5);
-        
-        /*
-        robot.pilot.steer(100, 45);
-        robot.pilot.steer(-30, -90);
-        robot.pilot.steer(-100, 45);
-        */
-        
-        try { Thread.sleep(1000); } catch (Exception e) { } 
-        robot.pilot.arc(45, 180, true);
+        robot.pilot.rotate(90, true);
         while (robot.pilot.isMoving() && !suppressed) {
             if (robot.enteredCarpet()) {
-                Sound.beep();
+                Sound.twoBeeps();
+                LCD.clear();
+                LCD.drawString("Carpet!", 0, 0);
+            } else if (robot.leftCarpet()) {
+                LCD.clear();
+            }
+        }
+        
+        if (!suppressed) {
+            robot.pilot.arc(-8, 23, true);
+        }
+        while (robot.pilot.isMoving() && !suppressed) {
+            if (robot.enteredCarpet()) {
+                Sound.twoBeeps();
                 LCD.clear();
                 LCD.drawString("Carpet!", 0, 0);
             } else if (robot.leftCarpet()) {
@@ -60,17 +63,17 @@ public class DetectCloseObject implements Behavior {
         if (!suppressed) {
             robot.pilot.rotate(-90, true);
         }
-        
         while (robot.pilot.isMoving() && !suppressed) {
             if (robot.enteredCarpet()) {
-                Sound.beep();
+                Sound.twoBeeps();
                 LCD.clear();
                 LCD.drawString("Carpet!", 0, 0);
             } else if (robot.leftCarpet()) {
                 LCD.clear();
             }
         }
-        robot.movePY(90);
+        
+        robot.movePY(5);
         
         robot.pilot.stop();
     }

@@ -53,6 +53,7 @@ public class DetectWall implements Behavior {
         while (robot.pilot.isMoving() && !suppressed) {
             // Wait
         }
+        robot.movePX(7);
 
         if (!suppressed)
             robot.pilot.rotate(angle, true);

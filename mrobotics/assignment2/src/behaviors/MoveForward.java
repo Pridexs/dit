@@ -50,10 +50,11 @@ public class MoveForward implements Behavior {
             robot.setMovementIncrement(robot.pilot.getMovementIncrement());
             
             if (robot.enteredCarpet()) {
-                Sound.beep();
+                Sound.twoBeeps();
                 LCD.clear();
                 LCD.drawString("Carpet!", 0, 0);
             } else if (robot.leftCarpet()) {
+                robot.setIsInCarpet(false);
                 LCD.clear();
             }
         }

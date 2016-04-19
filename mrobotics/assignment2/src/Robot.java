@@ -58,7 +58,7 @@ public class Robot {
         debugCounter = 0;
 
         pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
-        pilot.setTravelSpeed(4.0);
+        pilot.setTravelSpeed(6.0);
 
         light   = new LightSensor(SensorPort.S4);
         sonic   = new UltrasonicSensor(SensorPort.S2);
@@ -103,8 +103,12 @@ public class Robot {
     }
 
     public boolean isCloseToXWall() {
-        if (px + 20 > sizeX) {
-            return true;
+        if (px + 2 > sizeX) {
+            // THis is to ensure that he finish the last run.
+            if (isCloseToYWall()) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -164,12 +168,16 @@ public class Robot {
         this.movementIncrement = 0;
     }
     
+    public void setIsInCarpet(boolean isc) {
+        this.isInCarpet = isc;
+    }
+    
     public boolean enteredCarpet() {
         if (!isInCarpet) {
             int nlv = light.getNormalizedLightValue();
             if (nlv > floorLightValue + lightError 
                || nlv < floorLightValue - lightError) {
-                isInCarpet = true;
+                this.isInCarpet = true;
                 return true;
             } else {
                 return false;

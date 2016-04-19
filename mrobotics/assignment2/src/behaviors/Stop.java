@@ -26,7 +26,7 @@ public class Stop implements Behavior {
     }
 
     public boolean takeControl() {
-        return robot.bump.isPressed();
+        return robot.bump.isPressed() || robot.isCloseToXWall();
     }
 
     public void suppress() {
