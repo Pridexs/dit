@@ -60,9 +60,9 @@ public class Robot {
         pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
         pilot.setTravelSpeed(4.0);
 
-        light   = new LightSensor(SensorPort.S2);
-        sonic   = new UltrasonicSensor(SensorPort.S3);
-        bump    = new TouchSensor(SensorPort.S4);
+        light   = new LightSensor(SensorPort.S4);
+        sonic   = new UltrasonicSensor(SensorPort.S2);
+        bump    = new TouchSensor(SensorPort.S1);
     }
     
     public void setFloorLightValue(int flv) {
@@ -72,28 +72,31 @@ public class Robot {
     public boolean isCloseToYWall() {
         
         // For DEBUG Purposes:
-        if (debugCounter >= 5) {
+        if (debugCounter >= 9) {
             debugCounter = 0;
             LCD.clear();
             LCD.drawString("sizeX", 0, 0);
-            LCD.drawInt(Math.round(sizeX), 5, 0);
+            LCD.drawString(Float.toString(sizeX), 5, 0);
             
             LCD.drawString("sizeY", 0, 1);
-            LCD.drawInt(Math.round(sizeY), 5, 1);
+            LCD.drawString(Float.toString(sizeY), 5, 1);
             
             
             LCD.drawString("px", 0, 2);
-            LCD.drawInt(Math.round(px), 3, 2);
+            LCD.drawString(Float.toString(px), 3, 2);
             
             LCD.drawString("py", 0, 3);
-            LCD.drawInt(Math.round(py), 3, 3);
+            LCD.drawString(Float.toString(py), 3, 3);
             
             LCD.drawString("mi", 0, 4);
-            LCD.drawInt(Math.round(movementIncrement), 2, 4);
+            LCD.drawString(Float.toString(movementIncrement), 2, 4);
+            
+            LCD.drawString("di", 0, 6);
+            LCD.drawString(Float.toString(sonic.getDistance()), 2, 6);
         }
         debugCounter++;
         
-        if (py + 20 > sizeY + movementIncrement) {
+        if (py + 2 + movementIncrement > sizeY) {
             return true;
         }
         return false;

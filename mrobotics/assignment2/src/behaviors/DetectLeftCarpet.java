@@ -35,6 +35,9 @@ public class DetectLeftCarpet implements Behavior {
 
     public void action() {
         suppressed = false;
+        
+        
+        LCD.drawString("DETECTLEFTCARPET", 0, 5);
 
         LCD.clear();
     }

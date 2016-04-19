@@ -37,14 +37,14 @@ public class Assignment2 {
         }
 
         Robot robot = new Robot();
-
+        
         /*
          * ROOM RECOGNITION
          * Move until finds a wall -> rotate -> repeat 4 times
          */
         for (int i = 0; i < 4; i++) {
             robot.pilot.forward();
-            while (robot.sonic.getDistance() < 25) {
+            while (robot.sonic.getDistance() > 35) {
                 // Move until reaches wall
             }
             robot.pilot.stop();
@@ -68,12 +68,12 @@ public class Assignment2 {
          * b4 = Highest Priority
          */
         Behavior b1 = new MoveForward(robot);
-        Behavior b2 = new DetectLeftCarpet(robot);
-        Behavior b3 = new DetectEnteredCarpet(robot);
+        //Behavior b2 = new DetectLeftCarpet(robot);
+        //Behavior b3 = new DetectEnteredCarpet(robot);
         Behavior b4 = new DetectCloseObject(robot);
         Behavior b5 = new DetectWall(robot);
         Behavior b6 = new Stop(robot);
-        Behavior [] bArray = {b1, b2, b3, b4, b5, b6};
+        Behavior [] bArray = {b1, b4, b5, b6};
 
         Arbitrator arby = new Arbitrator(bArray);
         arby.start();

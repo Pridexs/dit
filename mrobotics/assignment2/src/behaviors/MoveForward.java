@@ -42,10 +42,20 @@ public class MoveForward implements Behavior {
 
     public void action() {
         suppressed = false;
+        
+        LCD.drawString("DETECTWALL", 0, 5);
 
         robot.pilot.forward();
         while( !suppressed ) {
             robot.setMovementIncrement(robot.pilot.getMovementIncrement());
+            
+            if (robot.enteredCarpet()) {
+                Sound.beep();
+                LCD.clear();
+                LCD.drawString("Carpet!", 0, 0);
+            } else if (robot.leftCarpet()) {
+                LCD.clear();
+            }
         }
         robot.resetMovementIncrement();
         robot.pilot.stop();

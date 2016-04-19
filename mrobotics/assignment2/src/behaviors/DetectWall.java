@@ -36,28 +36,30 @@ public class DetectWall implements Behavior {
     public void action() {
         suppressed = false;
         
+        LCD.drawString("DETECTWALL", 0, 5);
+        
+        robot.setPY(0);
+        
         // Should the robot turn clockwise or counter clockwise?
         double angle = 90 * robot.getTurnDirection();
 
         robot.pilot.rotate(angle, true);
-        while (robot.pilot.isMoving() || !suppressed) {
+        while (robot.pilot.isMoving() && !suppressed) {
             // Wait
         }
 
         if (!suppressed)
             robot.pilot.travel(7, true);
-        while (robot.pilot.isMoving() || !suppressed) {
+        while (robot.pilot.isMoving() && !suppressed) {
             // Wait
         }
 
         if (!suppressed)
             robot.pilot.rotate(angle, true);
-        while (robot.pilot.isMoving() || !suppressed) {
+        while (robot.pilot.isMoving() && !suppressed) {
             // Wait
         }
         
-        robot.setPY(0);
-
         robot.pilot.stop();
     }
 }

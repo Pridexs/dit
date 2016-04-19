@@ -36,6 +36,9 @@ public class DetectEnteredCarpet implements Behavior {
     public void action() {
         suppressed = false;
 
+        
+        LCD.drawString("DETECTENTEREDCARPET", 0, 5);
+        
         Sound.beep();
         LCD.clear();
         LCD.drawString("Carpet!", 0, 0);
