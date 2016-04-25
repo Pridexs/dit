@@ -35,6 +35,7 @@ public class DetectWall implements Behavior {
 
     public void action() {
         suppressed = false;
+        int nAction = 0;
         
         robot.setPY(0);
         
