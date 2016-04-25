@@ -46,17 +46,16 @@ public class Robot {
     private float debugCounter;
 
     public Robot() {
+        movementIncrement = 0;
+        isInCarpet = false;
+        turnDirection = -1;
+        debugCounter = 0;
+        lightError = 40;
         sizeX = 0;
         sizeY = 0;
         px = 0;
         py = 0;
-        turnDirection = 1;
-        movementIncrement = 0;
-        isInCarpet = false;
-        lightError = 40;
         
-        debugCounter = 0;
-
         pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
         pilot.setTravelSpeed(6.0);
 
@@ -72,6 +71,7 @@ public class Robot {
     public boolean isCloseToYWall() {
         
         // For DEBUG Purposes:
+        // REMOVE WHEN SUBMITTING
         if (debugCounter >= 9) {
             debugCounter = 0;
             LCD.clear();

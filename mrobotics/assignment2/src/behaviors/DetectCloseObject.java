@@ -36,8 +36,31 @@ public class DetectCloseObject implements Behavior {
     public void action() {
         suppressed = false;
         
-        robot.pilot.rotate(90, true);
-        while (robot.pilot.isMoving() && !suppressed) {
+        int nAction = 0;
+
+        /* Making a switch statement so the code becomes more readable
+         * since we do not need to have a while loop after every
+         * action
+         * 
+         * Rotate 90 degrees -> Make an Arc of radius 8 -> Rotate -90 Degrees
+         */
+        
+        while( !suppressed && nAction < 3 ) {
+            if ( !robot.pilot.isMoving() ){
+                switch (nAction) {
+                    case 0:
+                        robot.pilot.rotate(90, true);
+                        break;
+                    case 1:
+                        robot.pilot.arc(-8, 180, true);;
+                        break;
+                    case 2:
+                        robot.pilot.rotate(-90, true);
+                        break;
+                }
+                nAction++;
+            }
+            
             if (robot.enteredCarpet()) {
                 Sound.twoBeeps();
                 LCD.clear();
@@ -47,31 +70,9 @@ public class DetectCloseObject implements Behavior {
             }
         }
         
-        if (!suppressed) {
-            robot.pilot.arc(-8, 23, true);
-        }
-        while (robot.pilot.isMoving() && !suppressed) {
-            if (robot.enteredCarpet()) {
-                Sound.twoBeeps();
-                LCD.clear();
-                LCD.drawString("Carpet!", 0, 0);
-            } else if (robot.leftCarpet()) {
-                LCD.clear();
-            }
-        }
-        
-        if (!suppressed) {
-            robot.pilot.rotate(-90, true);
-        }
-        while (robot.pilot.isMoving() && !suppressed) {
-            if (robot.enteredCarpet()) {
-                Sound.twoBeeps();
-                LCD.clear();
-                LCD.drawString("Carpet!", 0, 0);
-            } else if (robot.leftCarpet()) {
-                LCD.clear();
-            }
-        }
+        // This while is just to wait for the robot to complete
+        // the final action (if it is not suppressed)
+        while ( !suppressed && robot.pilot.isMoving() ) { }
         
         robot.movePY(5);
         

@@ -42,10 +42,10 @@ public class MoveForward implements Behavior {
 
     public void action() {
         suppressed = false;
-        
-        LCD.drawString("DETECTWALL", 0, 5);
 
         robot.pilot.forward();
+        
+        // Move forward while it is not suppressed and keep checking for carpet.
         while( !suppressed ) {
             robot.setMovementIncrement(robot.pilot.getMovementIncrement());
             
@@ -54,7 +54,6 @@ public class MoveForward implements Behavior {
                 LCD.clear();
                 LCD.drawString("Carpet!", 0, 0);
             } else if (robot.leftCarpet()) {
-                robot.setIsInCarpet(false);
                 LCD.clear();
             }
         }
