@@ -49,10 +49,10 @@ public class DetectCloseObject implements Behavior {
             if ( !robot.pilot.isMoving() ){
                 switch (nAction) {
                     case 0:
-                        robot.pilot.rotate(90, true);
+                        robot.pilot.rotate(-90, true);
                         break;
                     case 1:
-                        robot.pilot.arc(-8, 180, true);;
+                        robot.pilot.arc(7, 180, true);;
                         break;
                     case 2:
                         robot.pilot.rotate(-90, true);

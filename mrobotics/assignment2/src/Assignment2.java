@@ -8,8 +8,8 @@
  *
  * To Compile run these commands in succession
  *  nxjc -d . behaviors/*.java *.java
- *  nxjlink assignment1.Assignment1 -o Assignment1.nxj
- *  nxjupload -u -r Assignment1.nxj
+ *  nxjlink assignment2.Assignment2 -o Assignment2.nxj
+ *  nxjupload -u -r Assignment2.nxj
  */
 
 
@@ -40,8 +40,8 @@ public class Assignment2 {
         
         
         /* FOR TESTING
-        robot.pilot.rotate(90);
-        robot.pilot.arc(-8, 180);
+        robot.pilot.rotate(-90);
+        robot.pilot.arc(7, 180);
         robot.pilot.rotate(-90);
         */
         
