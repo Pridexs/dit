@@ -38,17 +38,11 @@ public class Assignment2 {
 
         Robot robot = new Robot();
         
-        
-        /* FOR TESTING
-        robot.pilot.rotate(-90);
-        robot.pilot.arc(7, 180);
-        robot.pilot.rotate(-90);
-        */
-        
         /*
          * ROOM RECOGNITION
          * Move until finds a wall -> rotate -> repeat 4 times
          */
+        
         for (int i = 0; i < 4; i++) {
             robot.pilot.forward();
             while (robot.sonic.getDistance() > 25) {
@@ -64,6 +58,7 @@ public class Assignment2 {
         }
         // Find floor color
         robot.setFloorLightValue(robot.light.getNormalizedLightValue());
+        
         /*
          * END ROOM RECOGNITION
          */

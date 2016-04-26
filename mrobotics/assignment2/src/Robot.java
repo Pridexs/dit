@@ -56,7 +56,7 @@ public class Robot {
         px = 0;
         py = 0;
         
-        pilot = new DifferentialPilot(2.25f, 4.25f, Motor.A, Motor.C);
+        pilot = new DifferentialPilot(2.3f, 4.35f, Motor.A, Motor.C);
         pilot.setTravelSpeed(6.0);
 
         light   = new LightSensor(SensorPort.S4);
@@ -68,43 +68,25 @@ public class Robot {
         this.floorLightValue = flv;
     }
 
-    public boolean isCloseToYWall() {
-        
-        // For DEBUG Purposes:
-        // REMOVE WHEN SUBMITTING
-        if (debugCounter >= 9) {
-            debugCounter = 0;
-            LCD.clear();
-            LCD.drawString("sizeX", 0, 0);
-            LCD.drawString(Float.toString(sizeX), 5, 0);
-            
-            LCD.drawString("sizeY", 0, 1);
-            LCD.drawString(Float.toString(sizeY), 5, 1);
-            
-            
-            LCD.drawString("px", 0, 2);
-            LCD.drawString(Float.toString(px), 3, 2);
-            
-            LCD.drawString("py", 0, 3);
-            LCD.drawString(Float.toString(py), 3, 3);
-            
-            LCD.drawString("mi", 0, 4);
-            LCD.drawString(Float.toString(movementIncrement), 2, 4);
-            
-            LCD.drawString("di", 0, 6);
-            LCD.drawString(Float.toString(sonic.getDistance()), 2, 6);
-        }
-        debugCounter++;
-        
+    /*
+     * py = current position of the robot in the y axis
+     * movementIncrement = how much the robot moved since he last started moving
+     * sizeY = size of wall Y (length))
+     */
+    public boolean isCloseToYWall() {  
         if (py + 2 + movementIncrement > sizeY) {
             return true;
         }
         return false;
     }
-
+    
+    /*
+     * px = current position of the robot in the x axis
+     * sizeX = size of wall X (length))
+     */
     public boolean isCloseToXWall() {
         if (px + 2 > sizeX) {
-            // THis is to ensure that he finish the last run.
+            // This is to ensure that he finish the last run.
             if (isCloseToYWall()) {
                 return true;
             }
@@ -172,6 +154,13 @@ public class Robot {
         this.isInCarpet = isc;
     }
     
+    
+    /*
+     * If the normalized Light Value is higher than the floorLightValue + lightError
+     * and if the normalized light value is lower than the floorLightValue - lightError
+     * the robot is in the carpet.
+     * The lightError was used to have a margin of error.
+     */
     public boolean enteredCarpet() {
         if (!isInCarpet) {
             int nlv = light.getNormalizedLightValue();
@@ -187,6 +176,10 @@ public class Robot {
         }
     }
     
+    /*
+     * Same thing as the previous one, but detecting if he left the carpet and
+     * is in the value of the floorLightValue again.
+     */
     public boolean leftCarpet() {
         if (isInCarpet) {
             int nlv = light.getNormalizedLightValue();
